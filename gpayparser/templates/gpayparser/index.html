@@ -1,0 +1,27 @@
+
+{% extends 'vercel_app/base.html' %} 
+{% load static %}
+
+{% block title %}GPay to CSV - My Django Project {% endblock %} 
+{% block header %}GPay to CSV{% endblock %} 
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'gpayparser/css/index.css' %}">
+    <form method="post" action="{% url 'gpay_to_csv' %}" enctype="multipart/form-data" class="dropzone" >
+        {% csrf_token %}
+       
+        
+        {% for field in form %}
+            <div class="form-field">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="error-message">{{ field.errors.as_text }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <input type="submit" value="Submit" class="submit-button">
+    </form>
+{% endblock %}

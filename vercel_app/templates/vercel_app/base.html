@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Django Project{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'vercel_app/css/base.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>{% block header %}My Tools{% endblock %}</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <!-- Add more list items as needed -->
+      </ul>
+    </nav>
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer>
+      <p>&copy; 2024 My Django Project</p>
+    </footer>
+  </body>
+</html>
