@@ -7,20 +7,23 @@
 {% block content %}
 
     <link rel="stylesheet" href="{% static 'gpayparser/css/index.css' %}">
-    <form method="post" action="{% url 'gpay_to_csv' %}" enctype="multipart/form-data" class="dropzone" >
+    <form method="post" action="{% url 'gpay_to_csv' %}" enctype="multipart/form-data" >
         {% csrf_token %}
        
-        
-        {% for field in form %}
-            <div class="form-field">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <span class="error-message">{{ field.errors.as_text }}</span>
-                {% endif %}
-            </div>
-        {% endfor %}
 
+        {% for field in form %}
+        <div class="form-field {% if field.errors %}has-error{% endif %}">
+            <label for="{{ field.id_for_label }}" class="form-label">
+                {{ field.label }}
+                {% if field.required %}<span class="required-asterisk">*</span>{% endif %}
+
+            </label>
+            {{ field }}
+            {% for error in field.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+         {% endfor %}
         <br>
         <input type="submit" value="Submit" class="submit-button">
     </form>
