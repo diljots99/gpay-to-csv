@@ -1,5 +1,5 @@
 # example/views.py
-from datetime import datetime
+from datetime import datetime,time
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -81,6 +81,10 @@ def parse_transactions(transaction_str):
 
 
 def parse_v1(html,start_date,end_date):
+    if start_date:
+        start_date = datetime.combine(start_date,datetime.min.time())
+    if end_date: 
+        end_date = datetime.combine(end_date,datetime.max.time()) 
     soup = BeautifulSoup(html, 'html.parser')
     
     transactions = []
@@ -100,8 +104,8 @@ def parse_v1(html,start_date,end_date):
                         transactions.append(transaction)
                 else:
                     transactions.append(transaction)
-        except:
-            pass
+        except Exception as e:
+            print(e)
     return transactions
 
 def gpay_to_csv(request):
